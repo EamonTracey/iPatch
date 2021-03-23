@@ -72,8 +72,8 @@ struct RootView: View {
     
     private func patch() {
         guard readyToPatch else { return }
-        let binaryURL = convertIPAToBinary(ipaURL)
-        let dylibURL = debOrDylibURL.pathExtension == "deb" ? convertDebToDylib(debOrDylibURL) : debOrDylibURL
+        let binaryURL = extractBinaryFromIPA(ipaURL)
+        let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
         patch_binary_with_dylib(binaryURL.path, dylibURL.path, injectCydiaSubstrate)
         successAlertPresented = true
     }

@@ -9,7 +9,7 @@ import Foundation
 
 let tmp = try! FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: .init(string: ".")!, create: true)
 
-func execShell(launchPath: String, arguments: [String]) {
+func shell(launchPath: String, arguments: [String]) {
     let process = Process()
     process.launchPath = launchPath
     process.arguments = arguments
@@ -17,9 +17,9 @@ func execShell(launchPath: String, arguments: [String]) {
     process.waitUntilExit()
 }
 
-func convertDebToDylib(_ debURL: URL) -> URL {
+func extractDylibFromDeb(_ debURL: URL) -> URL {
     let tmpDebURL = tmp.appendingPathComponent("deb")
-    execShell(launchPath: "/usr/bin/ar", arguments: ["-x", debURL.path, tmpDebURL.path])
+    shell(launchPath: "/usr/bin/ar", arguments: ["-x", debURL.path, tmpDebURL.path])
     let dylibDir = tmpDebURL.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries").path
     guard let dylibDirEnum = FileManager.default.enumerator(atPath: dylibDir) else { fatalError() }
     guard let dylibPath = (dylibDirEnum.allObjects.filter {
@@ -28,9 +28,23 @@ func convertDebToDylib(_ debURL: URL) -> URL {
     return URL(string: "\(dylibDir)/\(dylibPath)")!
 }
 
-func convertIPAToBinary(_ ipaURL: URL) -> URL {
+func extractAppFromIPA(_ ipaURL: URL) -> URL {
     let tmpIPAURL = tmp.appendingPathComponent("ipa")
-    execShell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, tmpIPAURL.path])
-    let appDir = tmpIPAURL.appendingPathComponent("Payload")
+    shell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, tmpIPAURL.path])
+    let appDir = tmpIPAURL.appendingPathComponent("Payload").path
+    guard let appbDirEnum = FileManager.default.enumerator(atPath: appDir) else { fatalError() }
+    guard let appPath = (appbDirEnum.allObjects.filter {
+        ($0 as! String).hasSuffix(".dylib")
+    }.first as? String) else { fatalError() }
+    return URL(string: "\(appDir)/\(appPath)")!
+}
+
+func extractBinaryFromApp(_ appURL: URL) -> URL {
     fatalError()
+}
+
+func extractBinaryFromIPA(_ ipaURL: URL) -> URL {
+    let appURL = extractAppFromIPA(ipaURL)
+    let binaryURL = extractBinaryFromApp(appURL)
+    return binaryURL
 }
