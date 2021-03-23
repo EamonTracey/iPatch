@@ -25,18 +25,18 @@ func extractDylibFromDeb(_ debURL: URL) -> URL {
     guard let dylibPath = (dylibDirEnum.allObjects.filter {
         ($0 as! String).hasSuffix(".dylib")
     }.first as? String) else { fatalError() }
-    return URL(string: "\(dylibDir)/\(dylibPath)")!
+    return URL(fileURLWithPath: "\(dylibDir)/\(dylibPath)")
 }
 
 func extractAppFromIPA(_ ipaURL: URL) -> URL {
     let tmpIPAURL = tmp.appendingPathComponent("ipa")
     shell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, tmpIPAURL.path])
     let appDir = tmpIPAURL.appendingPathComponent("Payload").path
-    guard let appbDirEnum = FileManager.default.enumerator(atPath: appDir) else { fatalError() }
-    guard let appPath = (appbDirEnum.allObjects.filter {
+    guard let appDirEnum = FileManager.default.enumerator(atPath: appDir) else { fatalError() }
+    guard let appPath = (appDirEnum.allObjects.filter {
         ($0 as! String).hasSuffix(".dylib")
     }.first as? String) else { fatalError() }
-    return URL(string: "\(appDir)/\(appPath)")!
+    return URL(fileURLWithPath: "\(appDir)/\(appPath)")
 }
 
 func extractBinaryFromApp(_ appURL: URL) -> URL {

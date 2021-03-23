@@ -21,7 +21,7 @@ struct PatchButtonStyle: ButtonStyle {
                 .padding(.horizontal, 40)
                 .background(Color.accentColor)
                 .clipShape(Capsule())
-                .opacity(isEnabled && !configuration.isPressed ? 1 : 0.8)
+                .opacity(isEnabled && !configuration.isPressed ? 1 : 0.5)
         }
     }
 }
