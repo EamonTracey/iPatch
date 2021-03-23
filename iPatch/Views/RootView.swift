@@ -74,24 +74,28 @@ struct RootView: View {
     
     private func patch() {
         guard readyToPatch else { return }
-        var dylibURL: URL
-        if debOrDylibURL.pathExtension == "deb" {
-            let tmpDebURL = tmp.appendingPathComponent("deb")
-            let process = Process()
-            process.launchPath = "/usr/bin/ar"
-            process.arguments = ["-x", debOrDylibURL.path, tmpDebURL.path]
-            process.launch()
-            process.waitUntilExit()
-            let dynamicLibrariesPath = tmpDebURL.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries/").path
-            guard let dynamicLibrariesEnumerator = FileManager.default.enumerator(atPath: dynamicLibrariesPath) else { return }
-            guard let dylibPath = (dynamicLibrariesEnumerator.allObjects.filter {
-                ($0 as! String).hasSuffix(".dylib")
-            }.first as? String) else { return }
-            dylibURL = URL(string: "\(dynamicLibrariesPath)/\(dylibPath)")!
-        } else {
-            dylibURL = debOrDylibURL
-        }
-        patch_ipa_with_dylib(ipaURL.path, dylibURL.path, injectCydiaSubstrate)
+        let dylibURL = debOrDylibURL.pathExtension == "deb" ? convertDebToDylib(debOrDylibURL) : debOrDylibURL
+        patch_binary_with_dylib(ipaURL.path, dylibURL.path, injectCydiaSubstrate)
         successAlertPresented = true
+    }
+    
+    private func convertDebToDylib(_ debURL: URL) -> URL {
+        let tmpDebURL = tmp.appendingPathComponent("deb")
+        let process = Process()
+        process.launchPath = "/usr/bin/ar"
+        process.arguments = ["-x", debOrDylibURL.path, tmpDebURL.path]
+        process.launch()
+        process.waitUntilExit()
+        let dynamicLibrariesPath = tmpDebURL.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries/").path
+        guard let dynamicLibrariesEnumerator = FileManager.default.enumerator(atPath: dynamicLibrariesPath) else { fatalError() }
+        guard let dylibPath = (dynamicLibrariesEnumerator.allObjects.filter {
+            ($0 as! String).hasSuffix(".dylib")
+        }.first as? String) else { fatalError() }
+        return URL(string: "\(dynamicLibrariesPath)/\(dylibPath)")!
+    }
+    
+    private func convertIPAToBinary(_ ipaURL: URL) -> URL {
+        let tmpIPAURL = tmp.appendingPathComponent("ipa")
+        fatalError()
     }
 }

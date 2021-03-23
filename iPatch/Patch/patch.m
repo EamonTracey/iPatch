@@ -7,17 +7,9 @@
 
 #include "patch.h"
 
-int patch_ipa_with_dylib(NSString *ipaPath, NSString *dylibPath, BOOL shouldInjectSubstrate) {
-    NSLog(@"Dylib Path: %@", dylibPath);
-    
+int patch_binary_with_dylib(NSString *binaryPath, NSString *dylibPath, BOOL shouldInjectSubstrate) {
     // Create a tmp directory
     NSString *tmpPath = [[[NSFileManager defaultManager] URLForDirectory:NSItemReplacementDirectory inDomain:NSUserDomainMask appropriateForURL:[[NSURL alloc] initWithString:@"."] create:true error:nil] path];
-    
-    // Extract .app path from IPA
-    NSString *appPath = @"";
-    
-    // Extract app binary path from .app
-    NSString *binaryPath = @"";
     
     // Extract binary data
     NSData *originalData = [NSData dataWithContentsOfFile:binaryPath];
