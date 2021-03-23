@@ -14,7 +14,7 @@ struct RootView: View {
     @State private var ipaURL = URL(string: "_")!
     @State private var injectCydiaSubstrate = true
     @State private var successAlertPresented = false
-    private var readyToPatch: Bool { FileManager.default.filesExist(atURLPaths: [debOrDylibURL, ipaURL]) }
+    private var readyToPatch: Bool { FileManager.default.filesExist(atFileURLS: [debOrDylibURL, ipaURL]) }
     
     var body: some View {
         HStack {
@@ -78,7 +78,7 @@ struct RootView: View {
         if debOrDylibURL.pathExtension == "deb" {
             let tmpDebURL = tmp.appendingPathComponent("deb")
             let process = Process()
-            process.launchPath = "/usr/local/bin/dpkg-deb"
+            process.launchPath = "/usr/bin/ar"
             process.arguments = ["-x", debOrDylibURL.path, tmpDebURL.path]
             process.launch()
             process.waitUntilExit()

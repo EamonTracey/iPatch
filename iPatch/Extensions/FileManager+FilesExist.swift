@@ -8,8 +8,8 @@
 import Foundation
 
 extension FileManager {
-    func filesExist(atURLPaths urlPaths: [URL]) -> Bool {
-        for urlPath in urlPaths {
+    func filesExist(atFileURLS fileURLS: [URL]) -> Bool {
+        for urlPath in fileURLS {
             if !FileManager.default.fileExists(atPath: urlPath.path) {
                 return false
             }
