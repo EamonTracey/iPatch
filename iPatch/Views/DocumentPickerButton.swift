@@ -24,7 +24,9 @@ struct DocumentPickerButton: View {
             .onDrop(of: [.fileURL], isTargeted: .none) { providers in
                 let _ = providers.first?.loadObject(ofClass: URL.self) { url, _  in
                     if extensions.contains(url!.pathExtension) {
-                        selection = url!
+                        DispatchQueue.main.async {
+                            selection = url!
+                        }
                     } else {
                         NSSound.beep()
                     }

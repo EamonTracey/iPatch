@@ -16,24 +16,29 @@ class RootViewModel: ObservableObject {
     
     var readyToPatch: Bool {
         FileManager.default.filesExist(atFileURLS: [debOrDylibURL, ipaURL])
-        && ![debOrDylibURL, ipaURL].contains(URL(fileURLWithPath: ""))
+            && ![debOrDylibURL, ipaURL].contains(URL(fileURLWithPath: ""))
     }
     
     func patch() {
         guard readyToPatch else { return }
         let binaryURL = extractBinaryFromIPA(ipaURL)
         let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
-        patch_binary_with_dylib(binaryURL.path, dylibURL.path, injectCydiaSubstrate)
-        successAlertPresented = true
+        if patchBinary(binaryURL.path, withDylib: dylibURL.path) == .success {
+            successAlertPresented = true
+        }
     }
     
     func handleDrop(of providers: [NSItemProvider]) -> Bool {
         let _ = providers.first?.loadObject(ofClass: URL.self) { url, _  in
             switch url!.pathExtension {
             case "deb", "dylib":
-                self.debOrDylibURL = url!
+                DispatchQueue.main.async {
+                    self.debOrDylibURL = url!
+                }
             case "ipa":
-                self.ipaURL = url!
+                DispatchQueue.main.async {
+                    self.ipaURL = url!
+                }
             default:
                 NSSound.beep()
             }
