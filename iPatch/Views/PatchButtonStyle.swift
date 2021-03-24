@@ -12,9 +12,10 @@ struct PatchButtonStyle: ButtonStyle {
         PatchButton(configuration: configuration)
     }
     
-    struct PatchButton: View {
+    private struct PatchButton: View {
         let configuration: ButtonStyle.Configuration
         @Environment(\.isEnabled) private var isEnabled: Bool
+        
         var body: some View {
             configuration.label
                 .padding(.vertical)

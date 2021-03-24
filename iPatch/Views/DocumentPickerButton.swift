@@ -37,7 +37,7 @@ struct DocumentPickerButton: View {
         let panel = NSOpenPanel()
         panel.allowedFileTypes = extensions
         panel.begin { response in
-            if response == NSApplication.ModalResponse.OK {
+            if response == .OK {
                 selection = panel.url!
             }
         }

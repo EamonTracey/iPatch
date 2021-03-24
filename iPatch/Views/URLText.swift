@@ -9,12 +9,12 @@ import SwiftUI
 
 struct URLText: View {
     let url: URL
-    @State private var sheetPresented = false
+    @State private var popoverPresented = false
     
     var body: some View {
         Text(url.lastPathComponent)
-            .onTapGesture { sheetPresented = true }
-            .popover(isPresented: $sheetPresented, arrowEdge: .bottom) {
+            .onTapGesture { popoverPresented = true }
+            .popover(isPresented: $popoverPresented, arrowEdge: .bottom) {
                 Text(url.path)
                     .padding()
             }
