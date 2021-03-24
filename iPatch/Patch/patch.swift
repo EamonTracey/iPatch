@@ -17,9 +17,9 @@ func patchBinary(_ binaryPath: String, withDylib dylibPath: String) -> PatchResu
     let binary = originalData.mutableCopy() as! NSMutableData
     
     // Extract binary headers
-    let headers = UnsafeMutablePointer<thin_header>.allocate(capacity: 4)
+    var headers = thin_header()
     var numHeaders = UInt32()
-    headersFromBinary(headers, binary as Data, &numHeaders)
+    headersFromBinary(&headers, binary as Data, &numHeaders)
     
     // Successful patch
     return .success
