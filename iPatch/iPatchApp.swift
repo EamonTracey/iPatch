@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct iPatchApp: App {
+    @NSApplicationDelegateAdaptor(iPatchAppDelegate.self) private var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             RootView()

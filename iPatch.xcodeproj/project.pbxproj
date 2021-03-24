@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		635430DC260BF3B400CE1B2C /* iPatchAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635430DB260BF3B400CE1B2C /* iPatchAppDelegate.swift */; };
 		6390FE532608D7EE0038F038 /* NSData+Reading.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390FE4F2608D7EE0038F038 /* NSData+Reading.m */; };
 		6390FE552608D7EE0038F038 /* operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390FE512608D7EE0038F038 /* operations.m */; };
 		6390FE562608D7EE0038F038 /* headers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390FE522608D7EE0038F038 /* headers.m */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		635430DB260BF3B400CE1B2C /* iPatchAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPatchAppDelegate.swift; sourceTree = "<group>"; };
 		6390FE4A2608D7EE0038F038 /* NSData+Reading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Reading.h"; sourceTree = "<group>"; };
 		6390FE4C2608D7EE0038F038 /* operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = operations.h; sourceTree = "<group>"; };
 		6390FE4D2608D7EE0038F038 /* headers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = headers.h; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				6390FE572608D8100038F038 /* iPatch-Bridging-Header.h */,
 				6390FE492608D7EE0038F038 /* optool */,
+				635430DB260BF3B400CE1B2C /* iPatchAppDelegate.swift */,
 				63D18DFB2607FECF00C1B1C5 /* iPatchApp.swift */,
 				63E5C9B1260A9C0B00EDB0D0 /* View Models */,
 				63B99AEC260A8DE800496AF3 /* Utils */,
@@ -242,6 +245,7 @@
 				6390FE532608D7EE0038F038 /* NSData+Reading.m in Sources */,
 				63D18E1226081E0B00C1B1C5 /* FileManager+FilesExist.swift in Sources */,
 				63E5C9B3260A9C1C00EDB0D0 /* RootViewModel.swift in Sources */,
+				635430DC260BF3B400CE1B2C /* iPatchAppDelegate.swift in Sources */,
 				63C4FD4F260BDF78002FEB32 /* patch.swift in Sources */,
 				63D18DFC2607FECF00C1B1C5 /* iPatchApp.swift in Sources */,
 			);
