@@ -2,7 +2,7 @@
 //  PatchButtonStyle.swift
 //  iPatch
 //
-//  Created by Eamon Tracey on 3/22/21.
+//  Created by Eamon Tracey.
 //
 
 import SwiftUI

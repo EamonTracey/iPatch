@@ -24,4 +24,3 @@ func patchBinary(_ binaryPath: String, withDylib dylibPath: String) -> PatchResu
     // Successful patch
     return .success
 }
-

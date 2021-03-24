@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,6 @@
 		6390FE562608D7EE0038F038 /* headers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390FE522608D7EE0038F038 /* headers.m */; };
 		6390FE592608E38B0038F038 /* PatchButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6390FE582608E38B0038F038 /* PatchButtonStyle.swift */; };
 		63B99AEE260A8E0000496AF3 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B99AED260A8E0000496AF3 /* utils.swift */; };
-		63C4FD4D260BDA00002FEB32 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 63C4FD4C260BDA00002FEB32 /* ZIPFoundation */; };
 		63C4FD4F260BDF78002FEB32 /* patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C4FD4E260BDF78002FEB32 /* patch.swift */; };
 		63D18DFC2607FECF00C1B1C5 /* iPatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18DFB2607FECF00C1B1C5 /* iPatchApp.swift */; };
 		63D18DFE2607FECF00C1B1C5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18DFD2607FECF00C1B1C5 /* RootView.swift */; };
@@ -54,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63C4FD4D260BDA00002FEB32 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +176,6 @@
 			);
 			name = iPatch;
 			packageProductDependencies = (
-				63C4FD4C260BDA00002FEB32 /* ZIPFoundation */,
 			);
 			productName = iPatch;
 			productReference = 63D18DF82607FECF00C1B1C5 /* iPatch.app */;
@@ -208,7 +205,6 @@
 			);
 			mainGroup = 63D18DEF2607FECF00C1B1C5;
 			packageReferences = (
-				63C4FD4B260BDA00002FEB32 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			productRefGroup = 63D18DF92607FECF00C1B1C5 /* Products */;
 			projectDirPath = "";
@@ -443,25 +439,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		63C4FD4B260BDA00002FEB32 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.12;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		63C4FD4C260BDA00002FEB32 /* ZIPFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 63C4FD4B260BDA00002FEB32 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
-			productName = ZIPFoundation;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 63D18DF02607FECF00C1B1C5 /* Project object */;
 }

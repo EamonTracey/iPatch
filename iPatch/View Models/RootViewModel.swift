@@ -2,7 +2,7 @@
 //  RootViewModel.swift
 //  iPatch
 //
-//  Created by Eamon Tracey on 3/23/21.
+//  Created by Eamon Tracey.
 //
 
 import AppKit
