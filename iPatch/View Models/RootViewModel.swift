@@ -23,9 +23,8 @@ class RootViewModel: ObservableObject {
         guard readyToPatch else { return }
         let binaryURL = extractBinaryFromIPA(ipaURL)
         let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
-        if patchBinary(binaryURL.path, withDylib: dylibURL.path) == .success {
-            successAlertPresented = true
-        }
+        patch_binary_with_dylib(binaryURL.path, dylibURL.path, injectCydiaSubstrate)
+        successAlertPresented = true
     }
     
     func handleDrop(of providers: [NSItemProvider]) -> Bool {
