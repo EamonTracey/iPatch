@@ -14,4 +14,4 @@ typedef enum: int {
     PatchFailure,
 } PatchResult;
 
-PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibPath, BOOL shouldInjectSubstrate);
+PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibPath);

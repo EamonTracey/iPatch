@@ -5,9 +5,11 @@
 //  Created by Eamon Tracey.
 //
 
+import AppKit
 import Foundation
 
-let tmp = try! FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: .init(string: ".")!, create: true)
+let fileManager = FileManager.default
+let tmp = try! fileManager.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: .init(string: ".")!, create: true)
 
 func shell(launchPath: String, arguments: [String]) {
     let process = Process()
@@ -18,10 +20,10 @@ func shell(launchPath: String, arguments: [String]) {
 }
 
 func extractDylibFromDeb(_ debURL: URL) -> URL {
-    let tmpDebURL = tmp.appendingPathComponent("deb")
-    shell(launchPath: "/usr/local/bin/dpkg-deb", arguments: ["-x", debURL.path, tmpDebURL.path])
-    let dylibDir = tmpDebURL.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries").path
-    guard let dylibDirEnum = FileManager.default.enumerator(atPath: dylibDir) else { fatalError() }
+    let tmpDebDir = tmp.appendingPathComponent("deb")
+    shell(launchPath: "/usr/local/bin/dpkg-deb", arguments: ["-x", debURL.path, tmpDebDir.path])
+    let dylibDir = tmpDebDir.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries").path
+    guard let dylibDirEnum = fileManager.enumerator(atPath: dylibDir) else { fatalError() }
     guard let dylibPath = (dylibDirEnum.allObjects.filter {
         ($0 as! String).hasSuffix(".dylib")
     }.first as? String) else { fatalError() }
@@ -29,10 +31,10 @@ func extractDylibFromDeb(_ debURL: URL) -> URL {
 }
 
 func extractAppFromIPA(_ ipaURL: URL) -> URL {
-    let tmpIPAURL = tmp.appendingPathComponent("ipa")
-    shell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, "-d", tmpIPAURL.path])
-    let appDir = tmpIPAURL.appendingPathComponent("Payload").path
-    guard let appDirEnum = FileManager.default.enumerator(atPath: appDir) else { fatalError() }
+    let tmpOldIPADir = tmp.appendingPathComponent("oldipa")
+    shell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, "-d", tmpOldIPADir.path])
+    let appDir = tmpOldIPADir.appendingPathComponent("Payload").path
+    guard let appDirEnum = fileManager.enumerator(atPath: appDir) else { fatalError() }
     guard let appPath = (appDirEnum.allObjects.filter {
         ($0 as! String).hasSuffix(".app")
     }.first as? String) else { fatalError() }
@@ -46,8 +48,16 @@ func extractBinaryFromApp(_ appURL: URL) -> URL {
     return appURL.appendingPathComponent(executableName)
 }
 
-func extractBinaryFromIPA(_ ipaURL: URL) -> URL {
-    let appURL = extractAppFromIPA(ipaURL)
-    let binaryURL = extractBinaryFromApp(appURL)
-    return binaryURL
+func appToIPA(_ appURL: URL) -> URL {
+    return appURL
+}
+
+func saveFile(url: URL, allowedFileTypes: [String]) {
+    let savePanel = NSSavePanel()
+    savePanel.allowedFileTypes = allowedFileTypes
+    savePanel.begin { result in
+        if result == .OK {
+            try! fileManager.moveItem(at: url, to: savePanel.url!)
+        }
+    }
 }

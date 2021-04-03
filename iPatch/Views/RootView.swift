@@ -15,11 +15,13 @@ struct RootView: View {
             HStack {
                 Spacer()
                 HStack {
-                    Image(systemName: "hammer")
+                    Image(nsImage: NSApp.applicationIconImage)
+                        .resizable()
+                        .frame(width: 50, height: 50)
                     Text("iPatch")
                         .fontWeight(.bold)
+                        .font(.largeTitle)
                 }
-                .font(.largeTitle)
                 Spacer()
             }
             Spacer()
@@ -32,7 +34,7 @@ struct RootView: View {
                 URLText(url: vm.ipaURL)
                     .offset(x: 40)
             }
-            Toggle("Inject CydiaSubstrate", isOn: $vm.injectCydiaSubstrate)
+            // Toggle("Inject CydiaSubstrate", isOn: $vm.shouldInjectSubstrate)
             Spacer()
             HStack {
                 Spacer()

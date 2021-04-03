@@ -8,9 +8,9 @@
 import Foundation
 
 extension FileManager {
-    func filesExist(atFileURLS fileURLS: [URL]) -> Bool {
-        for urlPath in fileURLS {
-            if !FileManager.default.fileExists(atPath: urlPath.path) {
+    func filesExist(atFileURLS fileURLs: [URL]) -> Bool {
+        for urlPath in fileURLs {
+            if !iPatch.fileManager.fileExists(atPath: urlPath.path) {
                 return false
             }
         }
