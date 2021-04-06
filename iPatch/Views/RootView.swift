@@ -34,7 +34,6 @@ struct RootView: View {
                 URLText(url: vm.ipaURL)
                     .offset(x: 40)
             }
-            // Toggle("Inject CydiaSubstrate", isOn: $vm.shouldInjectSubstrate)
             Spacer()
             HStack {
                 Spacer()

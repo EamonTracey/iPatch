@@ -11,7 +11,6 @@ import Combine
 class RootViewModel: ObservableObject {
     @Published var debOrDylibURL = URL(fileURLWithPath: "")
     @Published var ipaURL = URL(fileURLWithPath: "")
-    @Published var shouldInjectSubstrate = true
     @Published var successAlertPresented = false
     
     var readyToPatch: Bool {
@@ -24,9 +23,8 @@ class RootViewModel: ObservableObject {
         let appURL = extractAppFromIPA(ipaURL)
         let binaryURL = extractBinaryFromApp(appURL)
         let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
-        patch_binary_with_dylib(binaryURL.path, dylibURL.path)
-        insertDylibsDir(intoApp: appURL, withDylibs: [dylibURL])
-        insertFrameworksDir(intoApp: appURL, withFrameworks: [])
+        patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent)
+        insertiPatchDylibsDir(intoApp: appURL, withDylibs: [dylibURL])
         successAlertPresented = true
         saveFile(url: appToIPA(appURL), allowedFileTypes: ["ipa"])
     }

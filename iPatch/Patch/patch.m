@@ -7,7 +7,7 @@
 
 #include "patch.h"
 
-PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibPath) {
+PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibName) {
     // Extract binary data
     NSMutableData *binary = [NSMutableData dataWithContentsOfFile:binaryPath];
 
@@ -17,12 +17,10 @@ PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibPath) {
     headersFromBinary(headers, binary, &numHeaders);
     
     // Loop through headers
-    NSString *dylibName;
     for (uint32_t i = 0; i < numHeaders; i++) {
         struct thin_header macho = headers[i];
-        dylibName = [NSString stringWithFormat:@"@executable_path/Dylibs/%@", [dylibPath componentsSeparatedByString:@"/"].lastObject];
         // Insert dylib load entry into binary
-        insertLoadEntryIntoBinary(dylibName, binary, macho, LC_LOAD_DYLIB);
+        insertLoadEntryIntoBinary([NSString stringWithFormat:@"@executable_path/iPatchDylibs/%@", dylibName], binary, macho, LC_LOAD_DYLIB);
     }
     
     // Write binary to original binary path
