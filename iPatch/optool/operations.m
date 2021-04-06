@@ -40,10 +40,10 @@ BOOL insertLoadEntryIntoBinary(NSString *dylibPath, NSMutableData *binary, struc
     if (binaryHasLoadCommandForDylib(binary, dylibPath, &lastOffset, macho)) {
         uint32_t originalType = *(uint32_t *)(binary.bytes + lastOffset);
         if (originalType != type) {
-            LOG("A load command already exists for %s. Changing command type from %s to desired %s", dylibPath.UTF8String, LC(originalType), LC(type));
+            NSLog(@"A load command already exists for %s. Changing command type from %s to desired %s", dylibPath.UTF8String, LC(originalType), LC(type));
             [binary replaceBytesInRange:NSMakeRange(lastOffset, sizeof(type)) withBytes:&type];
         } else {
-            LOG("Load command already exists");
+            NSLog(@"Load command already exists");
         }
         return YES;
     }
@@ -51,10 +51,10 @@ BOOL insertLoadEntryIntoBinary(NSString *dylibPath, NSMutableData *binary, struc
     unsigned int padding = (8 - (length % 8));
     NSData *occupant = [binary subdataWithRange:NSMakeRange(macho.header.sizeofcmds + macho.offset + macho.size, length + padding)];
     if (strcmp([occupant bytes], "\0")) {
-        LOG("cannot inject payload into %s because there is no room", dylibPath.fileSystemRepresentation);
+        NSLog(@"cannot inject payload into %s because there is no room", dylibPath.fileSystemRepresentation);
         return NO;
     }
-    LOG("Inserting a %s command for architecture: %s", LC(type), CPU(macho.header.cputype));
+    NSLog(@"Inserting a %s command for architecture: %s", LC(type), CPU(macho.header.cputype));
     struct dylib_command command;
     struct dylib dylib;
     dylib.name.offset = sizeof(struct dylib_command);
