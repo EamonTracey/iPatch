@@ -15,3 +15,10 @@ func insertiPatchDylibsDir(intoApp appURL: URL, withDylibs dylibURLs: [URL]) {
         try! fileManager.copyItem(at: dylibURL, to: dylibsDir.appendingPathComponent(dylibURL.lastPathComponent))
     }
 }
+
+func changeDisplayName(ofApp appURL: URL, to displayName: String) {
+    let infoURL = appURL.appendingPathComponent("Info.plist")
+    let info = NSDictionary(contentsOf: infoURL)!
+    info.setValue(displayName, forKey: "CFBundleDisplayName")
+    info.write(to: infoURL, atomically: true)
+}

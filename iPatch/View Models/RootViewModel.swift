@@ -11,6 +11,7 @@ import Combine
 class RootViewModel: ObservableObject {
     @Published var debOrDylibURL = URL(fileURLWithPath: "")
     @Published var ipaURL = URL(fileURLWithPath: "")
+    @Published var displayName = ""
     @Published var successAlertPresented = false
     
     var readyToPatch: Bool {
@@ -23,10 +24,17 @@ class RootViewModel: ObservableObject {
         let appURL = extractAppFromIPA(ipaURL)
         let binaryURL = extractBinaryFromApp(appURL)
         let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
+        changeDisplayName(ofApp: appURL, to: displayName)
         patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent)
         insertiPatchDylibsDir(intoApp: appURL, withDylibs: [dylibURL])
         successAlertPresented = true
-        saveFile(url: appToIPA(appURL), allowedFileTypes: ["ipa"])
+        saveFile(url: appToIPA(appURL), allowedFileTypes: ["app"])
+    }
+    
+    func ipaURLChanged() {
+        if (displayName == "") {
+            displayName = ipaURL.deletingPathExtension().lastPathComponent
+        }
     }
     
     func handleDrop(of providers: [NSItemProvider]) -> Bool {

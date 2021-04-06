@@ -34,6 +34,11 @@ struct RootView: View {
                 URLText(url: vm.ipaURL)
                     .offset(x: 40)
             }
+            HStack {
+                Text("Display Name")
+                TextField("", text: $vm.displayName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
             Spacer()
             HStack {
                 Spacer()
@@ -47,6 +52,7 @@ struct RootView: View {
         }
         .padding()
         .onDrop(of: [.fileURL], isTargeted: .none) { providers in vm.handleDrop(of: providers) }
+        .onChange(of: vm.ipaURL) { _ in vm.ipaURLChanged() }
         .alert(isPresented: $vm.successAlertPresented) {
             Alert(title: Text("iPatch Sucess!"), message: Text("Successfully injected \(vm.debOrDylibURL.path) into \(vm.ipaURL.path)"))
         }
