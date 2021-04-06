@@ -32,9 +32,6 @@ c = "LC_LOAD_DYLIB";\
 c;\
 })
 
-// we pass around this header which includes some extra information
-// and a 32-bit header which we used for both 32-bit and 64-bit files
-// since the 64-bit just adds an extra field to the end which we don't need
 struct thin_header {
     uint32_t offset;
     uint32_t size;
@@ -43,19 +40,19 @@ struct thin_header {
 
 typedef NS_ENUM(int, OPError) {
     OPErrorNone               = 0,
-    OPErrorRead               = 1,           // failed to read target path
-    OPErrorIncompatibleBinary = 2,           // couldn't find x86 or x86_64 architecture in binary
-    OPErrorStripFailure       = 3,           // failed to strip codesignature
-    OPErrorWriteFailure       = 4,           // failed to write data to final output path
-    OPErrorNoBackup           = 5,           // no backup to restore
-    OPErrorRemovalFailure     = 6,           // failed to remove executable during restore
-    OPErrorMoveFailure        = 7,           // failed to move backup to correct location
-    OPErrorNoEntries          = 8,           // cant remove dylib entries because they dont exist
-    OPErrorInsertFailure      = 9,           // failed to insert load command
-    OPErrorInvalidLoadCommand = 10,          // user provided an unnacceptable load command string
-    OPErrorResignFailure      = 11,          // codesign failed for some reason
-    OPErrorBackupFailure      = 12,          // failed to write backup
-    OPErrorInvalidArguments   = 13,          // bad arguments
-    OPErrorBadULEB            = 14,          // uleb while reading binding ordinals is in an invalid format
-    OPErrorULEBEncodeFailure  = 15           // failed to encode a uleb within specified length requirements
+    OPErrorRead               = 1,
+    OPErrorIncompatibleBinary = 2,
+    OPErrorStripFailure       = 3,
+    OPErrorWriteFailure       = 4,
+    OPErrorNoBackup           = 5,
+    OPErrorRemovalFailure     = 6,
+    OPErrorMoveFailure        = 7,
+    OPErrorNoEntries          = 8,
+    OPErrorInsertFailure      = 9,
+    OPErrorInvalidLoadCommand = 10,
+    OPErrorResignFailure      = 11,
+    OPErrorBackupFailure      = 12,
+    OPErrorInvalidArguments   = 13,
+    OPErrorBadULEB            = 14,
+    OPErrorULEBEncodeFailure  = 15
 };
