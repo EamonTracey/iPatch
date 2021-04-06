@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject private var vm = RootViewModel()
+    @State private var fontSize = 10
     
     var body: some View {
         VStack(alignment: .leading) {

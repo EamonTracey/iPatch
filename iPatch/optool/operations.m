@@ -1,31 +1,3 @@
-//
-//  operations.m
-//  optool
-//  Copyright (c) 2014, Alex Zielenski
-//  All rights reserved.
-//
-//  Redistribution and use in source and binary forms, with or without
-//  modification, are permitted provided that the following conditions are met:
-//
-//  * Redistributions of source code must retain the above copyright notice, this
-//  list of conditions and the following disclaimer.
-//
-//  * Redistributions in binary form must reproduce the above copyright notice,
-//  this list of conditions and the following disclaimer in the documentation
-//  and/or other materials provided with the distribution.
-//
-//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-//  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-//  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-//  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-//  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-//  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-//  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-//  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-//  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
 #import "operations.h"
 #import "NSData+Reading.h"
 #import "defines.h"
@@ -88,7 +60,7 @@ const char *OP_SOFT_UNRESTRICT = "\xf0\x9f\x92\xa9";
 BOOL stripCodeSignatureFromBinary(NSMutableData *binary, struct thin_header macho, BOOL softStrip) {
     binary.currentOffset = macho.offset + macho.size;
     BOOL success = NO;
-
+    
     // Loop through the commands until we found an LC_CODE_SIGNATURE command
     // and either replace it and its corresponding signature with zero-bytes
     // or change LC_CODE_SIGNATURE to OP_SOFT_STRIP, so the compiler
@@ -126,7 +98,7 @@ BOOL stripCodeSignatureFromBinary(NSMutableData *binary, struct thin_header mach
                 break;
         }
     }
-
+    
     // paste in a modified header with an updated number and size of load commands
     if (!softStrip) {
         [binary replaceBytesInRange:NSMakeRange(macho.offset, sizeof(macho.header)) withBytes:&macho.header length:sizeof(macho.header)];
@@ -144,7 +116,7 @@ BOOL unrestrictBinary(NSMutableData *binary, struct thin_header macho, BOOL soft
     // the __restrict section, if not, we will completely delete it and delete the entire __RESTRICT segment if it is
     // empty.
     LOG("unrestricting for architecture %s...", CPU(macho.header.cputype));
-
+    
     for (int i = 0; i < macho.header.ncmds; i++) {
         if (binary.currentOffset >= binary.length ||
             binary.currentOffset > macho.header.sizeofcmds + macho.size + macho.offset) // dont go past the header
@@ -154,21 +126,21 @@ BOOL unrestrictBinary(NSMutableData *binary, struct thin_header macho, BOOL soft
         uint32_t size = [binary intAtOffset:binary.currentOffset + sizeof(uint32_t)];
         
 #define CROSS(CODE...) \
-    case LC_SEGMENT: {\
-        typedef struct segment_command segment_type; \
-        typedef struct section section_type; \
-        CODE \
-    }\
-    case LC_SEGMENT_64: {\
-        typedef struct segment_command_64 segment_type; \
-        typedef struct section_64 section_type; \
-        CODE \
-    }
+case LC_SEGMENT: {\
+typedef struct segment_command segment_type; \
+typedef struct section section_type; \
+CODE \
+}\
+case LC_SEGMENT_64: {\
+typedef struct segment_command_64 segment_type; \
+typedef struct section_64 section_type; \
+CODE \
+}
         
         switch (cmd) {
-            CROSS(
-                segment_type *command = (segment_type *)(binary.mutableBytes + binary.currentOffset);
-                if (!strncmp(command->segname, "__RESTRICT", 16)) {
+                CROSS(
+                      segment_type *command = (segment_type *)(binary.mutableBytes + binary.currentOffset);
+                      if (!strncmp(command->segname, "__RESTRICT", 16)) {
                     LOG("Found __RESTRICT segment");
                     if (size < sizeof(command) ||
                         command->nsects > (size - sizeof(*command)) / sizeof(section_type)) {
@@ -222,8 +194,8 @@ BOOL unrestrictBinary(NSMutableData *binary, struct thin_header macho, BOOL soft
                 } else {
                     binary.currentOffset += size;
                 }
-                break;
-            )
+                      break;
+                      )
             default:
                 binary.currentOffset += size;
                 break;
@@ -281,7 +253,7 @@ BOOL removeLoadEntryFromBinary(NSMutableData *binary, struct thin_header macho, 
                 break;
             }
                 
-            //! EXPERIMENTAL: Shifting binding ordinals
+                //! EXPERIMENTAL: Shifting binding ordinals
             case LC_DYLD_INFO:
             case LC_DYLD_INFO_ONLY: {
                 if (removedOrdinal == -1) {
@@ -318,7 +290,7 @@ BOOL removeLoadEntryFromBinary(NSMutableData *binary, struct thin_header macho, 
                         
                         // increment s by the size of the ULEB
                         s += len;
-
+                        
                         
                     } else if (opcode == BIND_OPCODE_SET_DYLIB_ORDINAL_IMM) {
                         uint8_t immediate = *p & BIND_IMMEDIATE_MASK;
@@ -365,7 +337,7 @@ BOOL removeLoadEntryFromBinary(NSMutableData *binary, struct thin_header macho, 
 BOOL binaryHasLoadCommandForDylib(NSMutableData *binary, NSString *dylib, uint32_t *lastOffset, struct thin_header macho) {
     binary.currentOffset = macho.size + macho.offset;
     unsigned int loadOffset = (unsigned int)binary.currentOffset;
-
+    
     // Loop through compatible LC_LOAD commands until we find one which points
     // to the given dylib and tell the caller where it is and if it exists
     for (int i = 0; i < macho.header.ncmds; i++) {
@@ -430,7 +402,7 @@ BOOL renameBinary(NSMutableData *binary, struct thin_header macho, NSString *fro
                 off_t name_offset = binary.currentOffset + command->dylib.name.offset;
                 NSRange name_range = NSMakeRange(name_offset, command->cmdsize - command->dylib.name.offset);
                 char *name = (char *)[[binary subdataWithRange:name_range] bytes];
-
+                
                 if ([@(name) isEqualToString:from] || (!from && cmd == LC_ID_DYLIB)) {
                     const char *replacement = to.fileSystemRepresentation;
                     
@@ -456,7 +428,7 @@ BOOL renameBinary(NSMutableData *binary, struct thin_header macho, NSString *fro
                                           withBytes:&zero
                                              length:labs(shift)];
                     }
-                                        
+                    
                     command->cmdsize += shift;
                     macho.header.sizeofcmds += shift;
                     
@@ -508,7 +480,7 @@ BOOL insertLoadEntryIntoBinary(NSString *dylibPath, NSMutableData *binary, struc
     // check if data we are replacing is null
     NSData *occupant = [binary subdataWithRange:NSMakeRange(macho.header.sizeofcmds + macho.offset + macho.size,
                                                             length + padding)];
-
+    
     // All operations in optool try to maintain a constant byte size of the executable
     // so we don't want to append new bytes to the binary (that would break the executable
     // since everything is offset-based–we'd have to go in and adjust every offset)
