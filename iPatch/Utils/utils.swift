@@ -59,12 +59,14 @@ func appToIPA(_ appURL: URL) -> URL {
     return newIPADir.appendingPathComponent("newipa.ipa")
 }
 
-func saveFile(url: URL, allowedFileTypes: [String]) {
+func saveFile(url: URL, withPotentialName potentialName: String, allowedFileTypes: [String], completionHandler: @escaping () -> ()) {
     let savePanel = NSSavePanel()
+    savePanel.nameFieldStringValue = potentialName
     savePanel.allowedFileTypes = allowedFileTypes
     savePanel.begin { result in
         if result == .OK {
             try! fileManager.moveItem(at: url, to: savePanel.url!)
         }
     }
+    completionHandler()
 }
