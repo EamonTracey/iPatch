@@ -7,7 +7,7 @@
 
 #include "patch.h"
 
-PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibName) {
+PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibName, BOOL injectSubstrate) {
     // Extract binary data
     NSMutableData *binary = [NSMutableData dataWithContentsOfFile:binaryPath];
 
@@ -25,6 +25,13 @@ PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibName) {
     
     // Write binary to original binary path
     [binary writeToFile:binaryPath atomically:NO];
+    
+    // Insert libblackjack, libhooker, libsubstrate load commands
+    if (injectSubstrate) {
+        patch_binary_with_dylib(binaryPath, @"libblackjack.dylib", false);
+        patch_binary_with_dylib(binaryPath, @"libhooker.dylib", false);
+        patch_binary_with_dylib(binaryPath, @"libsubstrate.dylib", false);
+    }
 
     // Successful patch
     return PatchSuccess;

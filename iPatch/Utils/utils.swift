@@ -9,6 +9,7 @@ import AppKit
 import Foundation
 
 let fileManager = FileManager.default
+let bundle = Bundle.main
 let tmp = try! fileManager.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: .init(string: ".")!, create: true)
 
 func shell(launchPath: String, arguments: [String]) {

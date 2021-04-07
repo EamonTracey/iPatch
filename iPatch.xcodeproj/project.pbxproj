@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63179B73261D59D8008D07F8 /* libblackjack.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6D261D4D3D008D07F8 /* libblackjack.dylib */; };
+		63179B74261D59D8008D07F8 /* libhooker.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6E261D4D3D008D07F8 /* libhooker.dylib */; };
+		63179B75261D59D8008D07F8 /* libsubstrate.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6F261D4D3D008D07F8 /* libsubstrate.dylib */; };
 		633B8024260C266C00D30630 /* patch.m in Sources */ = {isa = PBXBuildFile; fileRef = 633B8023260C266C00D30630 /* patch.m */; };
 		635430DC260BF3B400CE1B2C /* iPatchAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635430DB260BF3B400CE1B2C /* iPatchAppDelegate.swift */; };
 		638EEBD9260CD7B500911B6A /* patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EEBD8260CD7B500911B6A /* patch.swift */; };
@@ -242,6 +245,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63179B73261D59D8008D07F8 /* libblackjack.dylib in Resources */,
+				63179B74261D59D8008D07F8 /* libhooker.dylib in Resources */,
+				63179B75261D59D8008D07F8 /* libsubstrate.dylib in Resources */,
 				63D18E032607FED100C1B1C5 /* Preview Assets.xcassets in Resources */,
 				63D18E002607FED100C1B1C5 /* Assets.xcassets in Resources */,
 			);
@@ -399,7 +405,7 @@
 				CODE_SIGN_ENTITLEMENTS = iPatch/iPatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"iPatch/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "iPatch/Preview\\ Content";
 				DEVELOPMENT_TEAM = UY72C74W7W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -428,7 +434,7 @@
 				CODE_SIGN_ENTITLEMENTS = iPatch/iPatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"iPatch/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "iPatch/Preview\\ Content";
 				DEVELOPMENT_TEAM = UY72C74W7W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
