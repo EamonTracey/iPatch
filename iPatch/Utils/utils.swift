@@ -52,8 +52,10 @@ func extractBinaryFromApp(_ appURL: URL) -> URL {
 func appToIPA(_ appURL: URL) -> URL {
     let newIPADir = tmp.appendingPathComponent("newipa")
     let payloadDir = newIPADir.appendingPathComponent("Payload")
-    try! fileManager.createDirectory(at: payloadDir, withIntermediateDirectories: true, attributes: .none)
-    try! fileManager.copyItem(at: appURL, to: payloadDir.appendingPathComponent(appURL.lastPathComponent))
+    fatalTry("Failed to copy app \(appURL.path) to new IPA payload directory \(payloadDir)") {
+        try fileManager.createDirectory(at: payloadDir, withIntermediateDirectories: true, attributes: .none)
+        try fileManager.copyItem(at: appURL, to: payloadDir.appendingPathComponent(appURL.lastPathComponent))
+    }
     fileManager.changeCurrentDirectoryPath(newIPADir.path )
     shell(launchPath: "/usr/bin/zip", arguments: ["-r", "newipa.ipa", "Payload"])
     return newIPADir.appendingPathComponent("newipa.ipa")
@@ -65,8 +67,24 @@ func saveFile(url: URL, withPotentialName potentialName: String, allowedFileType
     savePanel.allowedFileTypes = allowedFileTypes
     savePanel.begin { result in
         if result == .OK {
-            try! fileManager.moveItem(at: url, to: savePanel.url!)
+            fatalTry("Failed to move IPA file \(url) to desired location \(savePanel.url!)") {
+                try fileManager.moveItem(at: url, to: savePanel.url!)
+            }
         }
     }
     completionHandler()
+}
+
+func fatalTry(_ errorMessage: String, closure: @escaping () throws -> ()) {
+    do {
+        try closure()
+    } catch {
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.messageText = "iPatch Fatal Error"
+        alert.informativeText = errorMessage
+        alert.addButton(withTitle: "Exit")
+        alert.runModal()
+        NSApp.terminate(nil)
+    }
 }
