@@ -10,7 +10,7 @@ import Foundation
 extension FileManager {
     func filesExist(atFileURLS fileURLs: [URL]) -> Bool {
         for urlPath in fileURLs {
-            if !iPatch.fileManager.fileExists(atPath: urlPath.path) {
+            if !self.fileExists(atPath: urlPath.path) {
                 return false
             }
         }
