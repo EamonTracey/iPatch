@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct URLText: View {
-    let url: URL
+    let url: URL?
     @State private var popoverPresented = false
     
     var body: some View {
-        Text(url.lastPathComponent)
+        Text(url?.lastPathComponent ?? "Choose one")
             .onTapGesture { popoverPresented = true }
             .popover(isPresented: $popoverPresented) {
-                Text(url.path)
+                Text(url?.path ?? "")
                     .padding()
             }
     }

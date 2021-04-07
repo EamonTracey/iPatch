@@ -52,7 +52,7 @@ func extractBinaryFromApp(_ appURL: URL) -> URL {
 func appToIPA(_ appURL: URL) -> URL {
     let newIPADir = tmp.appendingPathComponent("newipa")
     let payloadDir = newIPADir.appendingPathComponent("Payload")
-    fatalTry("Failed to copy app \(appURL.path) to new IPA payload directory \(payloadDir)") {
+    fatalTry("Failed to copy app \(appURL.path) to new IPA payload directory \(payloadDir.path)") {
         try fileManager.createDirectory(at: payloadDir, withIntermediateDirectories: true, attributes: .none)
         try fileManager.copyItem(at: appURL, to: payloadDir.appendingPathComponent(appURL.lastPathComponent))
     }
@@ -67,12 +67,12 @@ func saveFile(url: URL, withPotentialName potentialName: String, allowedFileType
     savePanel.allowedFileTypes = allowedFileTypes
     savePanel.begin { result in
         if result == .OK {
-            fatalTry("Failed to move IPA file \(url) to desired location \(savePanel.url!)") {
+            fatalTry("Failed to move IPA file \(url.path) to desired location \(savePanel.url!.path)") {
                 try fileManager.moveItem(at: url, to: savePanel.url!)
             }
         }
+        completionHandler()
     }
-    completionHandler()
 }
 
 func fatalTry(_ errorMessage: String, closure: @escaping () throws -> ()) {

@@ -59,8 +59,6 @@ struct RootView: View {
         .padding()
         .onDrop(of: [.fileURL], isTargeted: .none) { providers in vm.handleDrop(of: providers) }
         .onChange(of: vm.ipaURL) { _ in vm.ipaURLDidChange() }
-        .alert(isPresented: $vm.successAlertPresented) {
-            Alert(title: Text("iPatch Sucess!"), message: Text("Successfully injected \(vm.debOrDylibURL.path) into \(vm.ipaURL.path)"))
-        }
+        .sheet(isPresented: $vm.isPatching) { PatchingProgressView() }
     }
 }

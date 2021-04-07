@@ -10,10 +10,10 @@ import SwiftUI
 
 struct DocumentPickerButton: View {
     let title: String
-    @Binding var selection: URL
+    @Binding var selection: URL?
     let extensions: [String]
     
-    init(_ title: String, selection: Binding<URL>, extensions: [String]) {
+    init(_ title: String, selection: Binding<URL?>, extensions: [String]) {
         self.title = title
         self._selection = selection
         self.extensions = extensions

@@ -9,26 +9,27 @@ import AppKit
 import Combine
 
 class RootViewModel: ObservableObject {
-    @Published var debOrDylibURL = URL(fileURLWithPath: "")
-    @Published var ipaURL = URL(fileURLWithPath: "")
+    @Published var debOrDylibURL: URL? = nil
+    @Published var ipaURL: URL? = nil
     @Published var injectSubstrate = true
     @Published var displayName = ""
     @Published var substratePopoverPresented = false
-    @Published var successAlertPresented = false
+    @Published var isPatching = false
     
     var readyToPatch: Bool {
-        fileManager.filesExist(atFileURLS: [debOrDylibURL, ipaURL])
-            && ![debOrDylibURL, ipaURL].contains(URL(fileURLWithPath: ""))
+        ![debOrDylibURL, ipaURL].contains(nil)
+            && fileManager.filesExist(atFileURLS: [debOrDylibURL!, ipaURL!])
     }
     
     func patch() {
         guard readyToPatch else { return }
-        iPatch.patch(ipa: ipaURL, withDebOrDylib: debOrDylibURL, andDisplayName: displayName, injectSubstrate: injectSubstrate)
-        successAlertPresented = true
+        isPatching = true
+        iPatch.patch(ipa: ipaURL!, withDebOrDylib: debOrDylibURL!, andDisplayName: displayName, injectSubstrate: injectSubstrate)
+        isPatching = false
     }
     
     func ipaURLDidChange() {
-        displayName = ipaURL.deletingPathExtension().lastPathComponent
+        displayName = ipaURL!.deletingPathExtension().lastPathComponent
     }
     
     func handleDrop(of providers: [NSItemProvider]) -> Bool {
