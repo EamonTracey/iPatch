@@ -12,7 +12,7 @@ struct thin_header headerAtOffset(NSData *binary, uint32_t offset) {
     } else {
         macho.size = sizeof(struct mach_header_64);
     }
-    if (macho.header.cputype != CPU_TYPE_X86_64 && macho.header.cputype != CPU_TYPE_I386 && macho.header.cputype != CPU_TYPE_ARM && macho.header.cputype != CPU_TYPE_ARM64){
+    if (macho.header.cputype != CPU_TYPE_X86_64 && macho.header.cputype != CPU_TYPE_I386 && macho.header.cputype != CPU_TYPE_ARM && macho.header.cputype != CPU_TYPE_ARM64) {
         macho.size = 0;
     }
     return macho;
@@ -21,7 +21,6 @@ struct thin_header headerAtOffset(NSData *binary, uint32_t offset) {
 struct thin_header *headersFromBinary(struct thin_header *headers, NSData *binary, uint32_t *amount) {
     uint32_t magic = [binary intAtOffset:0];
     bool shouldSwap = magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM;
-#define SWAP(NUM) shouldSwap ? CFSwapInt32(NUM) : NUM
     uint32_t numArchs = 0;
     if (magic == FAT_CIGAM || magic == FAT_MAGIC) {
         struct fat_header fat = *(struct fat_header *)binary.bytes;
@@ -45,7 +44,6 @@ struct thin_header *headersFromBinary(struct thin_header *headers, NSData *binar
             numArchs++;
             headers[0] = macho;
         }
-    } else {
     }
     *amount = numArchs;
     return headers;
