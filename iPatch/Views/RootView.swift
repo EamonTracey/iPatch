@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject private var vm = RootViewModel()
-    @State private var fontSize = 10
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -53,7 +52,7 @@ struct RootView: View {
         }
         .padding()
         .onDrop(of: [.fileURL], isTargeted: .none) { providers in vm.handleDrop(of: providers) }
-        .onChange(of: vm.ipaURL) { _ in vm.ipaURLChanged() }
+        .onChange(of: vm.ipaURL) { _ in vm.ipaURLDidChange() }
         .alert(isPresented: $vm.successAlertPresented) {
             Alert(title: Text("iPatch Sucess!"), message: Text("Successfully injected \(vm.debOrDylibURL.path) into \(vm.ipaURL.path)"))
         }

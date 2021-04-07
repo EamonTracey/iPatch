@@ -26,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63179B6D261D4D3D008D07F8 /* libblackjack.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libblackjack.dylib; sourceTree = "<group>"; };
+		63179B6E261D4D3D008D07F8 /* libhooker.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libhooker.dylib; sourceTree = "<group>"; };
+		63179B6F261D4D3D008D07F8 /* libsubstrate.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsubstrate.dylib; sourceTree = "<group>"; };
 		633B8023260C266C00D30630 /* patch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = patch.m; sourceTree = "<group>"; };
 		633B8025260C270C00D30630 /* patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patch.h; sourceTree = "<group>"; };
 		635430DB260BF3B400CE1B2C /* iPatchAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPatchAppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +67,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63179B6C261D4D3D008D07F8 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				63179B6D261D4D3D008D07F8 /* libblackjack.dylib */,
+				63179B6E261D4D3D008D07F8 /* libhooker.dylib */,
+				63179B6F261D4D3D008D07F8 /* libsubstrate.dylib */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
 		6333A895260924F8009902F6 /* Patch */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +131,7 @@
 				6390FE572608D8100038F038 /* iPatch-Bridging-Header.h */,
 				6390FE492608D7EE0038F038 /* optool */,
 				635430DB260BF3B400CE1B2C /* iPatchAppDelegate.swift */,
+				63179B6C261D4D3D008D07F8 /* Libs */,
 				63D18DFB2607FECF00C1B1C5 /* iPatchApp.swift */,
 				63E5C9B1260A9C0B00EDB0D0 /* View Models */,
 				63B99AEC260A8DE800496AF3 /* Utils */,
@@ -394,6 +408,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iPatch/Libs",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EamonTracey.iPatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -418,6 +436,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iPatch/Libs",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EamonTracey.iPatch;

@@ -7,13 +7,22 @@
 
 import Foundation
 
-func insertiPatchDylibsDir(intoApp appURL: URL, withDylibs dylibURLs: [URL]) {
+func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName displayName: String) {
+    let appURL = extractAppFromIPA(ipaURL)
+    let binaryURL = extractBinaryFromApp(appURL)
+    let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
+    changeDisplayName(ofApp: appURL, to: displayName)
+    patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent)
+    insertDylibsDir(intoApp: appURL, withDylib: dylibURL)
+    saveFile(url: appToIPA(appURL), allowedFileTypes: ["app"])
+}
+
+func insertDylibsDir(intoApp appURL: URL, withDylib dylibURL: URL) {
     let dylibsDir = appURL.appendingPathComponent("iPatchDylibs")
+    let newDylibURL = dylibsDir.appendingPathComponent(dylibURL.lastPathComponent)
     try? fileManager.createDirectory(at: dylibsDir, withIntermediateDirectories: false, attributes: .none)
-    for dylibURL in dylibURLs {
-        shell(launchPath: "/usr/bin/install_name_tool", arguments: ["-id", "@executable_path/iPatchDylibs/\(dylibURL.lastPathComponent)", dylibURL.path])
-        try! fileManager.copyItem(at: dylibURL, to: dylibsDir.appendingPathComponent(dylibURL.lastPathComponent))
-    }
+    try! fileManager.copyItem(at: dylibURL, to: newDylibURL)
+    shell(launchPath: "/usr/bin/install_name_tool", arguments: ["-id", "@executable_path/iPatchDylibs/\(dylibURL.lastPathComponent)", newDylibURL.path])
 }
 
 func changeDisplayName(ofApp appURL: URL, to displayName: String) {

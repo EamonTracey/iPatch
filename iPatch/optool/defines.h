@@ -35,22 +35,3 @@ struct thin_header {
     uint32_t size;
     struct mach_header header;
 };
-
-typedef NS_ENUM(int, OPError) {
-    OPErrorNone               = 0,
-    OPErrorRead               = 1,
-    OPErrorIncompatibleBinary = 2,
-    OPErrorStripFailure       = 3,
-    OPErrorWriteFailure       = 4,
-    OPErrorNoBackup           = 5,
-    OPErrorRemovalFailure     = 6,
-    OPErrorMoveFailure        = 7,
-    OPErrorNoEntries          = 8,
-    OPErrorInsertFailure      = 9,
-    OPErrorInvalidLoadCommand = 10,
-    OPErrorResignFailure      = 11,
-    OPErrorBackupFailure      = 12,
-    OPErrorInvalidArguments   = 13,
-    OPErrorBadULEB            = 14,
-    OPErrorULEBEncodeFailure  = 15
-};

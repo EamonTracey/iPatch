@@ -21,20 +21,12 @@ class RootViewModel: ObservableObject {
     
     func patch() {
         guard readyToPatch else { return }
-        let appURL = extractAppFromIPA(ipaURL)
-        let binaryURL = extractBinaryFromApp(appURL)
-        let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
-        changeDisplayName(ofApp: appURL, to: displayName)
-        patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent)
-        insertiPatchDylibsDir(intoApp: appURL, withDylibs: [dylibURL])
+        iPatch.patch(ipa: ipaURL, withDebOrDylib: debOrDylibURL, andDisplayName: displayName)
         successAlertPresented = true
-        saveFile(url: appToIPA(appURL), allowedFileTypes: ["app"])
     }
     
-    func ipaURLChanged() {
-        if (displayName == "") {
-            displayName = ipaURL.deletingPathExtension().lastPathComponent
-        }
+    func ipaURLDidChange() {
+        displayName = ipaURL.deletingPathExtension().lastPathComponent
     }
     
     func handleDrop(of providers: [NSItemProvider]) -> Bool {
