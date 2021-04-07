@@ -10,6 +10,7 @@
 		63179B73261D59D8008D07F8 /* libblackjack.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6D261D4D3D008D07F8 /* libblackjack.dylib */; };
 		63179B74261D59D8008D07F8 /* libhooker.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6E261D4D3D008D07F8 /* libhooker.dylib */; };
 		63179B75261D59D8008D07F8 /* libsubstrate.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6F261D4D3D008D07F8 /* libsubstrate.dylib */; };
+		632B4C49261D6BAE003AF24B /* SubstrateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B4C48261D6BAE003AF24B /* SubstrateInfo.swift */; };
 		633B8024260C266C00D30630 /* patch.m in Sources */ = {isa = PBXBuildFile; fileRef = 633B8023260C266C00D30630 /* patch.m */; };
 		635430DC260BF3B400CE1B2C /* iPatchAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635430DB260BF3B400CE1B2C /* iPatchAppDelegate.swift */; };
 		638EEBD9260CD7B500911B6A /* patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EEBD8260CD7B500911B6A /* patch.swift */; };
@@ -32,6 +33,7 @@
 		63179B6D261D4D3D008D07F8 /* libblackjack.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libblackjack.dylib; sourceTree = "<group>"; };
 		63179B6E261D4D3D008D07F8 /* libhooker.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libhooker.dylib; sourceTree = "<group>"; };
 		63179B6F261D4D3D008D07F8 /* libsubstrate.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsubstrate.dylib; sourceTree = "<group>"; };
+		632B4C48261D6BAE003AF24B /* SubstrateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstrateInfo.swift; sourceTree = "<group>"; };
 		633B8023260C266C00D30630 /* patch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = patch.m; sourceTree = "<group>"; };
 		633B8025260C270C00D30630 /* patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patch.h; sourceTree = "<group>"; };
 		635430DB260BF3B400CE1B2C /* iPatchAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPatchAppDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				63D18E0C2607FFAE00C1B1C5 /* DocumentPickerButton.swift */,
 				63D18E0E2608167000C1B1C5 /* URLText.swift */,
 				6390FE582608E38B0038F038 /* PatchButtonStyle.swift */,
+				632B4C48261D6BAE003AF24B /* SubstrateInfo.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				63D18E1226081E0B00C1B1C5 /* FileManager+FilesExist.swift in Sources */,
 				63E5C9B3260A9C1C00EDB0D0 /* RootViewModel.swift in Sources */,
 				635430DC260BF3B400CE1B2C /* iPatchAppDelegate.swift in Sources */,
+				632B4C49261D6BAE003AF24B /* SubstrateInfo.swift in Sources */,
 				638EEBD9260CD7B500911B6A /* patch.swift in Sources */,
 				63D18DFC2607FECF00C1B1C5 /* iPatchApp.swift in Sources */,
 			);

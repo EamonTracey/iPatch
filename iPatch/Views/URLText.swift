@@ -14,7 +14,7 @@ struct URLText: View {
     var body: some View {
         Text(url.lastPathComponent)
             .onTapGesture { popoverPresented = true }
-            .popover(isPresented: $popoverPresented, arrowEdge: .bottom) {
+            .popover(isPresented: $popoverPresented) {
                 Text(url.path)
                     .padding()
             }

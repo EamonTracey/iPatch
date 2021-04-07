@@ -39,6 +39,12 @@ struct RootView: View {
                 TextField("", text: $vm.displayName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
+            HStack {
+                Toggle("Inject Substrate", isOn: $vm.injectSubstrate)
+                Image(systemName: "info.circle")
+                    .onTapGesture { vm.substratePopoverPresented = true }
+                    .popover(isPresented: $vm.substratePopoverPresented) { SubstrateInfo() }
+            }
             Spacer()
             HStack {
                 Spacer()

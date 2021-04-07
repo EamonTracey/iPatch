@@ -26,14 +26,13 @@ PatchResult patch_binary_with_dylib(NSString *binaryPath, NSString *dylibName, B
     // Write binary to original binary path
     [binary writeToFile:binaryPath atomically:NO];
     
-    // Insert libblackjack, libhooker, libsubstrate load commands
+    // Insert libsubstrate load commands
+    // Only the libsubstrate load command is necessary
+    // because libsubstrate loads libblackjack and libhooker
     if (injectSubstrate) {
-        patch_binary_with_dylib(binaryPath, @"libblackjack.dylib", false);
-        patch_binary_with_dylib(binaryPath, @"libhooker.dylib", false);
         patch_binary_with_dylib(binaryPath, @"libsubstrate.dylib", false);
     }
 
     // Successful patch
     return PatchSuccess;
 }
-

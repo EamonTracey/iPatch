@@ -11,7 +11,9 @@ import Combine
 class RootViewModel: ObservableObject {
     @Published var debOrDylibURL = URL(fileURLWithPath: "")
     @Published var ipaURL = URL(fileURLWithPath: "")
+    @Published var injectSubstrate = true
     @Published var displayName = ""
+    @Published var substratePopoverPresented = false
     @Published var successAlertPresented = false
     
     var readyToPatch: Bool {
@@ -21,7 +23,7 @@ class RootViewModel: ObservableObject {
     
     func patch() {
         guard readyToPatch else { return }
-        iPatch.patch(ipa: ipaURL, withDebOrDylib: debOrDylibURL, andDisplayName: displayName)
+        iPatch.patch(ipa: ipaURL, withDebOrDylib: debOrDylibURL, andDisplayName: displayName, injectSubstrate: injectSubstrate)
         successAlertPresented = true
     }
     
