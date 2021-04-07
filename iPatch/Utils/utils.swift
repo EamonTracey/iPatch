@@ -32,9 +32,9 @@ func extractDylibFromDeb(_ debURL: URL) -> URL {
 }
 
 func extractAppFromIPA(_ ipaURL: URL) -> URL {
-    let tmpOldIPADir = tmp.appendingPathComponent("oldipa")
-    shell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, "-d", tmpOldIPADir.path])
-    let appDir = tmpOldIPADir.appendingPathComponent("Payload").path
+    let oldIPADir = tmp.appendingPathComponent("oldipa")
+    shell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, "-d", oldIPADir.path])
+    let appDir = oldIPADir.appendingPathComponent("Payload").path
     guard let appDirEnum = fileManager.enumerator(atPath: appDir) else { fatalError() }
     guard let appPath = (appDirEnum.allObjects.filter {
         ($0 as! String).hasSuffix(".app")
@@ -50,7 +50,13 @@ func extractBinaryFromApp(_ appURL: URL) -> URL {
 }
 
 func appToIPA(_ appURL: URL) -> URL {
-    return appURL
+    let newIPADir = tmp.appendingPathComponent("newipa")
+    let payloadDir = newIPADir.appendingPathComponent("Payload")
+    try! fileManager.createDirectory(at: payloadDir, withIntermediateDirectories: true, attributes: .none)
+    try! fileManager.copyItem(at: appURL, to: payloadDir.appendingPathComponent(appURL.lastPathComponent))
+    fileManager.changeCurrentDirectoryPath(newIPADir.path )
+    shell(launchPath: "/usr/bin/zip", arguments: ["-r", "newipa.ipa", "Payload"])
+    return newIPADir.appendingPathComponent("newipa.ipa")
 }
 
 func saveFile(url: URL, allowedFileTypes: [String]) {

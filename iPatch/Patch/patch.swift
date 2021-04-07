@@ -15,7 +15,7 @@ func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName di
     if injectSubstrate { insertSubstrateDylibs(intoApp: appURL) }
     patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent, injectSubstrate)
     changeDisplayName(ofApp: appURL, to: displayName)
-    saveFile(url: appToIPA(appURL), allowedFileTypes: ["app"])
+    saveFile(url: appToIPA(appURL), allowedFileTypes: ["ipa"])
 }
 
 func insertDylibsDir(intoApp appURL: URL, withDylib dylibURL: URL, injectSubstrate: Bool) {
