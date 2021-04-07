@@ -24,7 +24,6 @@ struct thin_header *headersFromBinary(struct thin_header *headers, NSData *binar
 #define SWAP(NUM) shouldSwap ? CFSwapInt32(NUM) : NUM
     uint32_t numArchs = 0;
     if (magic == FAT_CIGAM || magic == FAT_MAGIC) {
-        NSLog(@"Found FAT Header");
         struct fat_header fat = *(struct fat_header *)binary.bytes;
         fat.nfat_arch = SWAP(fat.nfat_arch);
         int offset = sizeof(struct fat_header);
@@ -35,7 +34,6 @@ struct thin_header *headersFromBinary(struct thin_header *headers, NSData *binar
             arch.offset = SWAP(arch.offset);
             struct thin_header macho = headerAtOffset(binary, arch.offset);
             if (macho.size > 0) {
-                NSLog(@"Found thin header...");
                 headers[numArchs] = macho;
                 numArchs++;
             }
@@ -44,12 +42,10 @@ struct thin_header *headersFromBinary(struct thin_header *headers, NSData *binar
     } else if (magic == MH_MAGIC || magic == MH_MAGIC_64) {
         struct thin_header macho = headerAtOffset(binary, 0);
         if (macho.size > 0) {
-            NSLog(@"Found thin header...");
             numArchs++;
             headers[0] = macho;
         }
     } else {
-        NSLog(@"No headers found.");
     }
     *amount = numArchs;
     return headers;
