@@ -8,6 +8,10 @@
 import SwiftUI
 
 class iPatchAppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        validateDependencies()
+    }
+    
     func applicationWillTerminate(_ notification: Notification) {
         try? iPatch.fileManager.removeItem(at: tmp)
     }

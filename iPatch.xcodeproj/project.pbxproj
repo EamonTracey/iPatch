@@ -25,7 +25,7 @@
 		63D18DFC2607FECF00C1B1C5 /* iPatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18DFB2607FECF00C1B1C5 /* iPatchApp.swift */; };
 		63D18DFE2607FECF00C1B1C5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18DFD2607FECF00C1B1C5 /* RootView.swift */; };
 		63D18E002607FED100C1B1C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D18DFF2607FED100C1B1C5 /* Assets.xcassets */; };
-		63D18E0D2607FFAE00C1B1C5 /* DocumentPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18E0C2607FFAE00C1B1C5 /* DocumentPickerButton.swift */; };
+		63D18E0D2607FFAE00C1B1C5 /* FilePickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18E0C2607FFAE00C1B1C5 /* FilePickerButton.swift */; };
 		63D18E0F2608167000C1B1C5 /* URLText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18E0E2608167000C1B1C5 /* URLText.swift */; };
 		63D18E1226081E0B00C1B1C5 /* FileManager+FilesExist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18E1126081E0B00C1B1C5 /* FileManager+FilesExist.swift */; };
 		63E412C9261ECCA900A45D45 /* dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E412C8261ECCA900A45D45 /* dependencies.swift */; };
@@ -61,7 +61,7 @@
 		63D18DFF2607FED100C1B1C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63D18E042607FED100C1B1C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63D18E052607FED100C1B1C5 /* iPatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iPatch.entitlements; sourceTree = "<group>"; };
-		63D18E0C2607FFAE00C1B1C5 /* DocumentPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerButton.swift; sourceTree = "<group>"; };
+		63D18E0C2607FFAE00C1B1C5 /* FilePickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerButton.swift; sourceTree = "<group>"; };
 		63D18E0E2608167000C1B1C5 /* URLText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLText.swift; sourceTree = "<group>"; };
 		63D18E1126081E0B00C1B1C5 /* FileManager+FilesExist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+FilesExist.swift"; sourceTree = "<group>"; };
 		63E412C8261ECCA900A45D45 /* dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dependencies.swift; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				63D18DFD2607FECF00C1B1C5 /* RootView.swift */,
-				63D18E0C2607FFAE00C1B1C5 /* DocumentPickerButton.swift */,
+				63D18E0C2607FFAE00C1B1C5 /* FilePickerButton.swift */,
 				63D18E0E2608167000C1B1C5 /* URLText.swift */,
 				6390FE582608E38B0038F038 /* PatchButtonStyle.swift */,
 				632B4C48261D6BAE003AF24B /* SubstrateInfo.swift */,
@@ -274,7 +274,7 @@
 				6390FE592608E38B0038F038 /* PatchButtonStyle.swift in Sources */,
 				6390FE562608D7EE0038F038 /* headers.m in Sources */,
 				63D18DFE2607FECF00C1B1C5 /* RootView.swift in Sources */,
-				63D18E0D2607FFAE00C1B1C5 /* DocumentPickerButton.swift in Sources */,
+				63D18E0D2607FFAE00C1B1C5 /* FilePickerButton.swift in Sources */,
 				6390FE552608D7EE0038F038 /* operations.m in Sources */,
 				6390FE532608D7EE0038F038 /* NSData+Reading.m in Sources */,
 				63D18E1226081E0B00C1B1C5 /* FileManager+FilesExist.swift in Sources */,

@@ -26,11 +26,11 @@ struct RootView: View {
             }
             Spacer()
             HStack {
-                DocumentPickerButton("DEB/Dylib", selection: $vm.debOrDylibURL, extensions: ["deb", "dylib"])
+                FilePickerButton("DEB/Dylib", selection: $vm.debOrDylibURL, extensions: ["deb", "dylib"])
                 URLText(url: vm.debOrDylibURL)
             }
             HStack {
-                DocumentPickerButton("IPA", selection: $vm.ipaURL, extensions: ["ipa"])
+                FilePickerButton("IPA", selection: $vm.ipaURL, extensions: ["ipa"])
                 URLText(url: vm.ipaURL)
                     .offset(x: 40)
             }

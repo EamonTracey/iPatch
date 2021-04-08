@@ -1,5 +1,5 @@
 //
-//  DocumentPickerButton.swift
+//  FilePickerButton.swift
 //  iPatch
 //
 //  Created by Eamon Tracey.
@@ -8,7 +8,7 @@
 import AppKit
 import SwiftUI
 
-struct DocumentPickerButton: View {
+struct FilePickerButton: View {
     let title: String
     @Binding var selection: URL?
     let extensions: [String]
