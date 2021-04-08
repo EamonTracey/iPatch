@@ -12,18 +12,7 @@ struct RootView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Spacer()
-                HStack {
-                    Image(nsImage: NSApp.applicationIconImage)
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                    Text("iPatch")
-                        .fontWeight(.bold)
-                        .font(.largeTitle)
-                }
-                Spacer()
-            }
+            Header()
             Spacer()
             HStack {
                 FilePickerButton("DEB/Dylib", selection: $vm.debOrDylibURL, extensions: ["deb", "dylib"])

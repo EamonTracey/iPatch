@@ -6,7 +6,7 @@
 //
 
 func validateDependencies() {
-    if !fileManager.filesExist(atFileURLS: [URL(fileURLWithPath: DPKGDEB), URL(fileURLWithPath: INSTALL_NAME_TOOL), URL(fileURLWithPath: ZIP), URL(fileURLWithPath: UNZIP)]) {
-        fatalExit("Missing dependencies. Please ensure you have installed the Xcode command line tools and dpkg-deb. You can install dpkg with brew.")
+    if !fileManager.filesExist(atFileURLS: [URL(fileURLWithPath: AR), URL(fileURLWithPath: TAR), URL(fileURLWithPath: INSTALL_NAME_TOOL), URL(fileURLWithPath: UNZIP), URL(fileURLWithPath: ZIP)]) {
+        fatalExit("Missing dependencies. Please ensure you have installed the Xcode command line tools. iPatch requires \(AR), \(TAR), \(INSTALL_NAME_TOOL), \(UNZIP), and \(ZIP)")
     }
 }

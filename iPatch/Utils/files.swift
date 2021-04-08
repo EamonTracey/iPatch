@@ -12,7 +12,14 @@ let tmp = try! fileManager.url(for: .itemReplacementDirectory, in: .userDomainMa
 
 func extractDylibFromDeb(_ debURL: URL) -> URL {
     let debDir = tmp.appendingPathComponent("deb")
-    shell(launchPath: DPKGDEB, arguments: ["-x", debURL.path, debDir.path])
+    let debDebURL = debDir.appendingPathComponent("deb.deb")
+    fatalTry("Failed to copy debian package \(debURL) to temporary deb directory \(debDir.path)") {
+        try fileManager.createDirectory(at: debDir, withIntermediateDirectories: false, attributes: .none)
+        try fileManager.copyItem(at: debURL, to: debDebURL)
+    }
+    fileManager.changeCurrentDirectoryPath(debDir.path)
+    shell(launchPath: AR, arguments: ["-x", debDebURL.path])
+    shell(launchPath: TAR, arguments: ["-xf", "data.tar.lzma"])
     let dylibDirPath = debDir.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries").path
     guard let dylibDirEnum = fileManager.enumerator(atPath: dylibDirPath) else {
         fatalExit("Malformed tweak debian package at \(debURL.path). The package does not contain a Library/MobileSubstrate/DynamicLibraries directory.")

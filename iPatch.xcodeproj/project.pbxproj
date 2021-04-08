@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6306E584261EE8B900AF1BBC /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6306E583261EE8B900AF1BBC /* Header.swift */; };
 		63179B73261D59D8008D07F8 /* libblackjack.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6D261D4D3D008D07F8 /* libblackjack.dylib */; };
 		63179B74261D59D8008D07F8 /* libhooker.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6E261D4D3D008D07F8 /* libhooker.dylib */; };
 		63179B75261D59D8008D07F8 /* libsubstrate.dylib in Resources */ = {isa = PBXBuildFile; fileRef = 63179B6F261D4D3D008D07F8 /* libsubstrate.dylib */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6306E583261EE8B900AF1BBC /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		63179B6D261D4D3D008D07F8 /* libblackjack.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libblackjack.dylib; sourceTree = "<group>"; };
 		63179B6E261D4D3D008D07F8 /* libhooker.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libhooker.dylib; sourceTree = "<group>"; };
 		63179B6F261D4D3D008D07F8 /* libsubstrate.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsubstrate.dylib; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				63D18DFD2607FECF00C1B1C5 /* RootView.swift */,
+				6306E583261EE8B900AF1BBC /* Header.swift */,
 				63D18E0C2607FFAE00C1B1C5 /* FilePickerButton.swift */,
 				63D18E0E2608167000C1B1C5 /* URLText.swift */,
 				6390FE582608E38B0038F038 /* PatchButtonStyle.swift */,
@@ -276,6 +279,7 @@
 				63D18DFE2607FECF00C1B1C5 /* RootView.swift in Sources */,
 				63D18E0D2607FFAE00C1B1C5 /* FilePickerButton.swift in Sources */,
 				6390FE552608D7EE0038F038 /* operations.m in Sources */,
+				6306E584261EE8B900AF1BBC /* Header.swift in Sources */,
 				6390FE532608D7EE0038F038 /* NSData+Reading.m in Sources */,
 				63D18E1226081E0B00C1B1C5 /* FileManager+FilesExist.swift in Sources */,
 				634D8F93261EC69C005DB578 /* files.swift in Sources */,
