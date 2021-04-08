@@ -17,7 +17,7 @@ func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName di
     let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
     insertDylibsDir(intoApp: appURL, withDylib: dylibURL, injectSubstrate: injectSubstrate)
     if !patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent, injectSubstrate) {
-        
+        fatalExit("Unable to patch app binary at \(binaryURL.path). The binary may be malformed.")
     }
     changeDisplayName(ofApp: appURL, to: displayName)
     saveFile(url: appToIPA(appURL), withPotentialName: displayName, allowedFileTypes: ["ipa"])
@@ -30,9 +30,9 @@ func insertDylibsDir(intoApp appURL: URL, withDylib dylibURL: URL, injectSubstra
     fatalTry("Failed to copy dylib \(dylibURL.path) to app iPatchDylibs directory \(dylibsDir.path).") {
         try fileManager.copyItem(at: dylibURL, to: newDylibURL)
     }
-    shell(launchPath: "/usr/bin/install_name_tool", arguments: ["-id", "@executable_path/iPatchDylibs/\(dylibURL.lastPathComponent)", newDylibURL.path])
+    shell(launchPath: INSTALL_NAME_TOOL, arguments: ["-id", "\(EXECIPATCHDYLIBS)/\(dylibURL.lastPathComponent)", newDylibURL.path])
     if injectSubstrate {
-        shell(launchPath: "/usr/bin/install_name_tool", arguments: ["-change", "/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate", "@executable_path/iPatchDylibs/libsubstrate.dylib", newDylibURL.path])
+        shell(launchPath: INSTALL_NAME_TOOL, arguments: ["-change", "/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate", "\(EXECIPATCHDYLIBS)/libsubstrate.dylib", newDylibURL.path])
         insertSubstrateDylibs(intoApp: appURL)
     }
 }

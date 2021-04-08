@@ -12,7 +12,7 @@ let tmp = try! fileManager.url(for: .itemReplacementDirectory, in: .userDomainMa
 
 func extractDylibFromDeb(_ debURL: URL) -> URL {
     let debDir = tmp.appendingPathComponent("deb")
-    shell(launchPath: "/usr/local/bin/dpkg-deb", arguments: ["-x", debURL.path, debDir.path])
+    shell(launchPath: DPKGDEB, arguments: ["-x", debURL.path, debDir.path])
     let dylibDirPath = debDir.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries").path
     guard let dylibDirEnum = fileManager.enumerator(atPath: dylibDirPath) else {
         fatalExit("Malformed tweak debian package at \(debURL.path). The package does not contain a Library/MobileSubstrate/DynamicLibraries directory.")
@@ -27,7 +27,7 @@ func extractDylibFromDeb(_ debURL: URL) -> URL {
 
 func extractAppFromIPA(_ ipaURL: URL) -> URL {
     let oldIPADir = tmp.appendingPathComponent("oldipa")
-    shell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, "-d", oldIPADir.path])
+    shell(launchPath: UNZIP, arguments: [ipaURL.path, "-d", oldIPADir.path])
     let payloadDirPath = oldIPADir.appendingPathComponent("Payload").path
     guard let payloadDirEnum = fileManager.enumerator(atPath: payloadDirPath) else {
         fatalExit("Malformed IPA file \(ipaURL.path). The IPA does not contain a Payload directory.")
@@ -55,7 +55,7 @@ func appToIPA(_ appURL: URL) -> URL {
         try fileManager.copyItem(at: appURL, to: payloadDir.appendingPathComponent(appURL.lastPathComponent))
     }
     fileManager.changeCurrentDirectoryPath(newIPADir.path )
-    shell(launchPath: "/usr/bin/zip", arguments: ["-r", "newipa.ipa", "Payload"])
+    shell(launchPath: ZIP, arguments: ["-r", "newipa.ipa", "Payload"])
     return newIPADir.appendingPathComponent("newipa.ipa")
 }
 
