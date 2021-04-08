@@ -12,7 +12,9 @@ func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName di
     let binaryURL = extractBinaryFromApp(appURL)
     let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
     insertDylibsDir(intoApp: appURL, withDylib: dylibURL, injectSubstrate: injectSubstrate)
-    patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent, injectSubstrate)
+    if !patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent, injectSubstrate) {
+        
+    }
     changeDisplayName(ofApp: appURL, to: displayName)
     saveFile(url: appToIPA(appURL), withPotentialName: displayName, allowedFileTypes: ["ipa"]) {
         DispatchQueue.main.async {

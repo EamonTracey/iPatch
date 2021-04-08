@@ -21,25 +21,25 @@ func shell(launchPath: String, arguments: [String]) {
 }
 
 func extractDylibFromDeb(_ debURL: URL) -> URL {
-    let tmpDebDir = tmp.appendingPathComponent("deb")
-    shell(launchPath: "/usr/local/bin/dpkg-deb", arguments: ["-x", debURL.path, tmpDebDir.path])
-    let dylibDir = tmpDebDir.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries").path
-    guard let dylibDirEnum = fileManager.enumerator(atPath: dylibDir) else { fatalError() }
+    let debDir = tmp.appendingPathComponent("deb")
+    shell(launchPath: "/usr/local/bin/dpkg-deb", arguments: ["-x", debURL.path, debDir.path])
+    let dylibDirPath = debDir.appendingPathComponent("Library/MobileSubstrate/DynamicLibraries").path
+    guard let dylibDirEnum = fileManager.enumerator(atPath: dylibDirPath) else { fatalError() }
     guard let dylibPath = (dylibDirEnum.allObjects.filter {
         ($0 as! String).hasSuffix(".dylib")
     }.first as? String) else { fatalError() }
-    return URL(fileURLWithPath: "\(dylibDir)/\(dylibPath)")
+    return URL(fileURLWithPath: "\(dylibDirPath)/\(dylibPath)")
 }
 
 func extractAppFromIPA(_ ipaURL: URL) -> URL {
     let oldIPADir = tmp.appendingPathComponent("oldipa")
     shell(launchPath: "/usr/bin/unzip", arguments: [ipaURL.path, "-d", oldIPADir.path])
-    let appDir = oldIPADir.appendingPathComponent("Payload").path
-    guard let appDirEnum = fileManager.enumerator(atPath: appDir) else { fatalError() }
+    let appDirPath = oldIPADir.appendingPathComponent("Payload").path
+    guard let appDirEnum = fileManager.enumerator(atPath: appDirPath) else { fatalError() }
     guard let appPath = (appDirEnum.allObjects.filter {
         ($0 as! String).hasSuffix(".app")
     }.first as? String) else { fatalError() }
-    return URL(fileURLWithPath: "\(appDir)/\(appPath)")
+    return URL(fileURLWithPath: "\(appDirPath)/\(appPath)")
 }
 
 func extractBinaryFromApp(_ appURL: URL) -> URL {

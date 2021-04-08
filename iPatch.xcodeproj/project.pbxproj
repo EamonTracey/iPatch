@@ -23,7 +23,6 @@
 		63D18DFC2607FECF00C1B1C5 /* iPatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18DFB2607FECF00C1B1C5 /* iPatchApp.swift */; };
 		63D18DFE2607FECF00C1B1C5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18DFD2607FECF00C1B1C5 /* RootView.swift */; };
 		63D18E002607FED100C1B1C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D18DFF2607FED100C1B1C5 /* Assets.xcassets */; };
-		63D18E032607FED100C1B1C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D18E022607FED100C1B1C5 /* Preview Assets.xcassets */; };
 		63D18E0D2607FFAE00C1B1C5 /* DocumentPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18E0C2607FFAE00C1B1C5 /* DocumentPickerButton.swift */; };
 		63D18E0F2608167000C1B1C5 /* URLText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18E0E2608167000C1B1C5 /* URLText.swift */; };
 		63D18E1226081E0B00C1B1C5 /* FileManager+FilesExist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D18E1126081E0B00C1B1C5 /* FileManager+FilesExist.swift */; };
@@ -54,7 +53,6 @@
 		63D18DFB2607FECF00C1B1C5 /* iPatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPatchApp.swift; sourceTree = "<group>"; };
 		63D18DFD2607FECF00C1B1C5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		63D18DFF2607FED100C1B1C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		63D18E022607FED100C1B1C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		63D18E042607FED100C1B1C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63D18E052607FED100C1B1C5 /* iPatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iPatch.entitlements; sourceTree = "<group>"; };
 		63D18E0C2607FFAE00C1B1C5 /* DocumentPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerButton.swift; sourceTree = "<group>"; };
@@ -148,17 +146,8 @@
 				63D18DFF2607FED100C1B1C5 /* Assets.xcassets */,
 				63D18E042607FED100C1B1C5 /* Info.plist */,
 				63D18E052607FED100C1B1C5 /* iPatch.entitlements */,
-				63D18E012607FED100C1B1C5 /* Preview Content */,
 			);
 			path = iPatch;
-			sourceTree = "<group>";
-		};
-		63D18E012607FED100C1B1C5 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				63D18E022607FED100C1B1C5 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		63D18E0B2607FF8400C1B1C5 /* Views */ = {
@@ -254,7 +243,6 @@
 				63179B73261D59D8008D07F8 /* libblackjack.dylib in Resources */,
 				63179B74261D59D8008D07F8 /* libhooker.dylib in Resources */,
 				63179B75261D59D8008D07F8 /* libsubstrate.dylib in Resources */,
-				63D18E032607FED100C1B1C5 /* Preview Assets.xcassets in Resources */,
 				63D18E002607FED100C1B1C5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,7 +401,6 @@
 				CODE_SIGN_ENTITLEMENTS = iPatch/iPatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "iPatch/Preview\\ Content";
 				DEVELOPMENT_TEAM = UY72C74W7W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -442,7 +429,6 @@
 				CODE_SIGN_ENTITLEMENTS = iPatch/iPatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "iPatch/Preview\\ Content";
 				DEVELOPMENT_TEAM = UY72C74W7W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
