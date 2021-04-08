@@ -8,6 +8,8 @@
 import Foundation
 
 func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName displayName: String, injectSubstrate: Bool) {
+    try? fileManager.removeItem(at: tmp)
+    try? fileManager.createDirectory(at: tmp, withIntermediateDirectories: false, attributes: .none)
     let appURL = extractAppFromIPA(ipaURL)
     let binaryURL = extractBinaryFromApp(appURL)
     let dylibURL = debOrDylibURL.pathExtension == "deb" ? extractDylibFromDeb(debOrDylibURL) : debOrDylibURL
@@ -16,11 +18,7 @@ func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName di
         
     }
     changeDisplayName(ofApp: appURL, to: displayName)
-    saveFile(url: appToIPA(appURL), withPotentialName: displayName, allowedFileTypes: ["ipa"]) {
-        DispatchQueue.main.async {
-            try? fileManager.removeItem(at: tmp)
-        }
-    }
+    saveFile(url: appToIPA(appURL), withPotentialName: displayName, allowedFileTypes: ["ipa"])
 }
 
 func insertDylibsDir(intoApp appURL: URL, withDylib dylibURL: URL, injectSubstrate: Bool) {
