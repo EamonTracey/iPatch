@@ -7,6 +7,8 @@
 
 import Foundation
 
+let bundle = Bundle.main
+
 func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName displayName: String, injectSubstrate: Bool) {
     try? fileManager.removeItem(at: tmp)
     try? fileManager.createDirectory(at: tmp, withIntermediateDirectories: false, attributes: .none)
@@ -25,7 +27,7 @@ func insertDylibsDir(intoApp appURL: URL, withDylib dylibURL: URL, injectSubstra
     let dylibsDir = appURL.appendingPathComponent("iPatchDylibs")
     let newDylibURL = dylibsDir.appendingPathComponent(dylibURL.lastPathComponent)
     try? fileManager.createDirectory(at: dylibsDir, withIntermediateDirectories: false, attributes: .none)
-    fatalTry("Failed to copy dylib \(dylibURL.path) to app iPatchDylibs directory \(dylibsDir.path)") {
+    fatalTry("Failed to copy dylib \(dylibURL.path) to app iPatchDylibs directory \(dylibsDir.path).") {
         try fileManager.copyItem(at: dylibURL, to: newDylibURL)
     }
     shell(launchPath: "/usr/bin/install_name_tool", arguments: ["-id", "@executable_path/iPatchDylibs/\(dylibURL.lastPathComponent)", newDylibURL.path])
@@ -37,7 +39,7 @@ func insertDylibsDir(intoApp appURL: URL, withDylib dylibURL: URL, injectSubstra
 
 func insertSubstrateDylibs(intoApp appURL: URL) {
     let dylibsDir = appURL.appendingPathComponent("iPatchDylibs")
-    fatalTry("Failed to copy libblackjack, libhooker, and libsubstrate to app iPatchDylibs directory \(dylibsDir.path)") {
+    fatalTry("Failed to copy libblackjack, libhooker, and libsubstrate to app iPatchDylibs directory \(dylibsDir.path).") {
         try fileManager.copyItem(at: bundle.url(forResource: "libblackjack", withExtension: "dylib")!, to: dylibsDir.appendingPathComponent("libblackjack.dylib"))
         try fileManager.copyItem(at: bundle.url(forResource: "libhooker", withExtension: "dylib")!, to: dylibsDir.appendingPathComponent("libhooker.dylib"))
         try fileManager.copyItem(at: bundle.url(forResource: "libsubstrate", withExtension: "dylib")!, to: dylibsDir.appendingPathComponent("libsubstrate.dylib"))
