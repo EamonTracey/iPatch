@@ -13,6 +13,7 @@ class RootViewModel: ObservableObject {
     @Published var ipaURL: URL? = nil
     @Published var injectSubstrate = true
     @Published var displayName = ""
+    @Published var bundleID = ""
     @Published var substratePopoverPresented = false
     @Published var isPatching = false
     
@@ -24,7 +25,7 @@ class RootViewModel: ObservableObject {
     func patch() {
         guard readyToPatch else { return }
         isPatching = true
-        iPatch.patch(ipa: ipaURL!, withDebOrDylib: debOrDylibURL!, andDisplayName: displayName, injectSubstrate: injectSubstrate)
+        iPatch.patch(ipa: ipaURL!, withDebOrDylib: debOrDylibURL!, andDisplayName: displayName, andBundleID: bundleID, injectSubstrate: injectSubstrate)
         isPatching = false
     }
     

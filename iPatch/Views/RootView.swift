@@ -23,10 +23,22 @@ struct RootView: View {
                 URLText(url: vm.ipaURL)
                     .offset(x: 40)
             }
-            HStack {
-                Text("Display Name")
-                TextField("", text: $vm.displayName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            // SwiftUI only lets you have 10 'things' in a stack, so I combined these into one
+            // Tried using Group, but that caused some weird error
+            // Idk why this happens, I hate Swift(UI) :)
+            // Seems to work/look fine so who cares
+            VStack {
+                HStack {
+                    Text("Custom Display Name")
+                    TextField("", text: $vm.displayName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                
+                HStack {
+                    Text("Custom Bundle ID")
+                    TextField("", text: $vm.bundleID)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
             }
             HStack {
                 Toggle("Inject Substrate", isOn: $vm.injectSubstrate)
@@ -43,7 +55,7 @@ struct RootView: View {
                 Spacer()
             }
             Spacer()
-            Text("Eamon Tracey © 2021")
+            Text("Eamon Tracey © 2022")
         }
         .padding()
         .onDrop(of: [.fileURL], isTargeted: .none) { providers in vm.handleDrop(of: providers) }
