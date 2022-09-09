@@ -9,7 +9,7 @@ import Foundation
 
 let bundle = Bundle.main
 
-func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName displayName: String, injectSubstrate: Bool) {
+func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName displayName: String, andBundleID bundleID: String, injectSubstrate: Bool) {
     try? fileManager.removeItem(at: tmp)
     try? fileManager.createDirectory(at: tmp, withIntermediateDirectories: false, attributes: .none)
     let appURL = extractAppFromIPA(ipaURL)
@@ -19,7 +19,14 @@ func patch(ipa ipaURL: URL, withDebOrDylib debOrDylibURL: URL, andDisplayName di
     if !patch_binary_with_dylib(binaryURL.path, dylibURL.lastPathComponent, injectSubstrate) {
         fatalExit("Unable to patch app binary at \(binaryURL.path). The binary may be malformed.")
     }
-    changeDisplayName(ofApp: appURL, to: displayName)
+    
+    if displayName != "" {
+        changeDisplayName(ofApp: appURL, to: displayName)
+    }
+    
+    if bundleID != "" {
+        changeBundleID(ofApp: appURL, to: bundleID)
+    }
     saveFile(url: appToIPA(appURL), withPotentialName: displayName, allowedFileTypes: ["ipa"])
 }
 
@@ -50,5 +57,12 @@ func changeDisplayName(ofApp appURL: URL, to displayName: String) {
     let infoURL = appURL.appendingPathComponent("Info.plist")
     let info = NSDictionary(contentsOf: infoURL)!
     info.setValue(displayName, forKey: "CFBundleDisplayName")
+    info.write(to: infoURL, atomically: true)
+}
+
+func changeBundleID(ofApp appURL: URL, to bundleID: String) {
+    let infoURL = appURL.appendingPathComponent("Info.plist")
+    let info = NSDictionary(contentsOf: infoURL)!
+    info.setValue(bundleID, forKey: "CFBundleIdentifier")
     info.write(to: infoURL, atomically: true)
 }
